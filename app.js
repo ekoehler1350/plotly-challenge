@@ -4,10 +4,13 @@ function getMetadata(sample){
 		var metadata= data.metadata;
 		var results1 = metadata.filter(sampleObject => sampleObject.id == sample);
 		var result2=results1[0]
-		var metadataPanel = d3.select("#sample-metadata");
-		metadataPanel.html("");
+		//console.log(result2['id'])
+		var PANEL = d3.select("#sample-metadata");
+		PANEL.html("");
+		//var age = result2['age']
+		//PANEL.append("h6").text('Age : ${age}');
 		Object.entries(result2).forEach(([key, value])=>{
-			metadataPanel.append("h6").text('${key}: ${value}');
+			PANEL.append("h6").text(`${key.toUpperCase()} : ${value}`);
 		});
 	});
 };
@@ -25,9 +28,9 @@ function getPlots(sample){
 
 		//Build bar chart using plotlu
 		var trace1 = {
-			x: ids.slice(0,10).map(otuId=> 'OTU ${otuId}').reverse(),
-			y: values.slice(1,10).reverse(),
-			text: labels.slice(1,10).reverse(),
+			y: ids.slice(0,10).map(otuId=> `OTU ${otuId}`).reverse(),
+			x: values.slice(0,10).reverse(),
+			text: labels.slice(0,10).reverse(),
 			type: "bar",
 			orientation: "h"
 		};
@@ -37,9 +40,9 @@ function getPlots(sample){
 		var barLayout = {
 			title: "Top 10 Operational Taxonomic Units (OTUs) Found",
 			margin: {
-				l: 100,
-				r: 100,
-				b: 30
+				l: 150,
+				t:30
+		
 			}
 		};
 
